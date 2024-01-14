@@ -7,6 +7,83 @@
 *.o
 *.obj
 
+#Ignore project files in the root
+.sln
+!*.sln
+.vs
+*.suo
+*.opensdf
+*.sdf
+*.pdb
+*-Debug.dll
+*.xcodeproj
+./Makefile
+./CMakeLists.txt
+..ue4dependencies
+
+ipch*
+
+#Derived data cache should never be checked in
+Engine/DerivedDataCache*
+
+#Engine intermediates
+Engine/Intermediate/Build/BuildRules*
+Engine/Plugins*/Intermediate*
+
+#Intermediate folders created for various C# programs
+Engine/Source/Programs*/obj*
+
+#Saved folders for programs should not be checked in
+Engine/Programs*/Saved*
+Engine/Programs/UnrealBuildTool*
+
+#Intermediate folders for programs should not be checked in
+Engine/Programs*/Intermediate*
+
+#Ignore any saved local files
+Engine/Saved*
+
+#Ignore any build receipts
+Engine/Build/Receipts*
+
+#Ignore location files that break sync between Jenkins and P4v
+Engine/Content/Localization/EditorTutorials/ja/EditorTutorials.archive
+Engine/Content/Localization/EditorTutorials/zh-Hans/EditorTutorials.archive
+Engine/Content/Localization/Engine/ko/Engine.archive
+
+#Ignore Unix backup files
+*~
+
+#Ignore Mac desktop services store files
+.DS_Store
+
+#Ignore crash reports
+crashinfo–*
+
+#Ignore linux project files
+*.user
+*.pro
+*.pri
+*.kdev4
+
+#Ignore FMOD files
+FMOD/.cache/*
+FMOD/.unsaved/*
+FMOD/.user/*
+
+# Ignore project-specific files
+#global_2024/Binaries/*.pdb
+#global_2024/Binaries/-Shipping.
+global_2024/Binaries/*
+global_2024/Build/Receipts/*
+global_2024/DerivedDataCache/*
+global_2024/Intermediate/*
+global_2024/Saved/*
+global_2024/*.sln
+global_2024/Plugins/*/Intermediate/*
+global_2024/Plugins/FMODStudio/Binaries/Win64/UE4Editor.modules
+global_2024/*.vscode
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -35,6 +112,7 @@
 *.xcodeproj
 *.xcworkspace
 *.sln
+*.vsconfig
 *.suo
 *.opensdf
 *.sdf
