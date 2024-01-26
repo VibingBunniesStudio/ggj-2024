@@ -81,7 +81,7 @@ global_2024/Intermediate/*
 global_2024/Saved/*
 global_2024/*.sln
 global_2024/Plugins/*/Intermediate/*
-global_2024/Plugins/FMODStudio/Binaries/Win64/UE4Editor.modules
+global_2024/Plugins/FMODStudio/Binaries/Win64/UnrealEditor.modules
 global_2024/*.vscode
 
 # Precompiled Headers
