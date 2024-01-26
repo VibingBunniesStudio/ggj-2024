@@ -25,6 +25,7 @@ public:
 	UPROPERTY(Config, EditAnywhere, Export, Category = "Enhanced Input Configuration|Input Bindings", meta = (ShowOnlyInnerProperties))
 	TMap<FName, FInputActionWrapper> namedInputActions;
 
+	UFUNCTION(BlueprintCallable)
 	const UInputAction* GetInputActionByName(FName name) const;
 
 	UFUNCTION(BlueprintPure)
