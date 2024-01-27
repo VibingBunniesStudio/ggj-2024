@@ -28,6 +28,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void TakeDamage();
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Take Damage"))
+	void TakeDamage_Internal();
 
 	UFUNCTION()
 	void Attack(int32 playerIndex);

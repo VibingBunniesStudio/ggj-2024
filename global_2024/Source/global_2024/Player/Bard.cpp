@@ -36,6 +36,7 @@ void ABard::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ABard::TakeDamage()
 {
 	if (m_hp > 0) {
+		TakeDamage_Internal();
 		m_hp--;
 		m_onHealthChanged.Broadcast(m_playerId, m_hp);
 	}
