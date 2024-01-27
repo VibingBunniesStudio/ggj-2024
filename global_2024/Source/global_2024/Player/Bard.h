@@ -5,6 +5,8 @@
 #include "GameFramework/Character.h"
 #include "Bard.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHealthChanged, int32, playerIndex, int32, remainingHealth);
+
 UCLASS()
 class GLOBAL_2024_API ABard : public ACharacter
 {
@@ -13,6 +15,10 @@ class GLOBAL_2024_API ABard : public ACharacter
 private:
 
 	int m_hp;
+	int m_playerId;
+
+public:
+	static FHealthChanged m_onHealthChanged;
 
 public:
 	

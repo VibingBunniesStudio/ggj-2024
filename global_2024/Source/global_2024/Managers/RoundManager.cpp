@@ -4,6 +4,7 @@
 #include "RoundManager.h"
 #include "Kismet/GameplayStatics.h"
 #include "InputCombo/InputComboManager.h"
+#include "../Player/Bard.h"
 
 // Sets default values
 ARoundManager::ARoundManager() : m_currentRound(-1)
@@ -30,12 +31,25 @@ void ARoundManager::FinishCombat()
 {
 }
 
+void ARoundManager::EvaluatePlayerHealth(int32 playerIndex, int32 remainingHealth)
+{
+	m_onHealthChanged.Broadcast(playerIndex, remainingHealth);
+	if (remainingHealth > 0)
+	{
+		StartNewRound();
+	}
+	else 
+	{
+		//Victory screen
+	}
+}
+
 // Called when the game starts or when spawned
 void ARoundManager::BeginPlay()
 {
 	Super::BeginPlay();
 	m_comboManager = Cast<AInputComboManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AInputComboManager::StaticClass()));
-	
+	ABard::m_onHealthChanged.AddDynamic(this, &ARoundManager::EvaluatePlayerHealth);
 }
 
 // Called every frame

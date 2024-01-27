@@ -8,6 +8,8 @@
 
 class AInputComboManager;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerHealthChanged, int32, playerIndex, int32, remainingHealth);
+
 UCLASS()
 class GLOBAL_2024_API ARoundManager : public AActor
 {
@@ -16,22 +18,26 @@ class GLOBAL_2024_API ARoundManager : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ARoundManager();
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
 	void StartNewRound();
 
 	void ApplyRoundResult(int winnerPlayerIndex);
 	void FinishCombat();
+	UFUNCTION()
+	void EvaluatePlayerHealth(int32 playerIndex, int32 remainingHealth);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 	AInputComboManager* m_comboManager;
 	int32 m_currentRound = -1;
+	UPROPERTY(BlueprintAssignable)
+	FPlayerHealthChanged m_onHealthChanged;
 
 };
