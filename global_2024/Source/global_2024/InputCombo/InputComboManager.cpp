@@ -40,10 +40,10 @@ void AInputComboManager::GenerateComboSecuence(int32 numberOfInputs, int32 diffe
 		bool hasDouble = false;
 		int32 prevKey = differentInputsAmounts;
 		int32 generatedKey;
-		TSet<int32> unusedInputs;
+		TArray<int32> unusedInputs;
 		for (int i = 0; i < differentInputsAmounts; i++)
 		{
-			unusedInputs.Add(i);
+			unusedInputs.AddUnique(i);
 		}
 		for (int i = 0; i < numberOfInputs; i++)
 		{
@@ -60,13 +60,13 @@ void AInputComboManager::GenerateComboSecuence(int32 numberOfInputs, int32 diffe
 				}
 			}
 			prevKey = generatedKey;
-			unusedInputs.Remove(generatedKey);
+			unusedInputs.RemoveSingleSwap(generatedKey);
 			comboSequence->Add(GetComboIndexKey(generatedKey));
 		}
 		if (unusedInputs.Num() > (differentInputsAmounts - 3))
 		{
 			int32 replacedPosition = FMath::RandRange(0, numberOfInputs - 1);
-			int32 replacedElement = unusedInputs[FSetElementId::FromInteger(FMath::RandRange(0, unusedInputs.Num() - 1))];
+			int32 replacedElement = unusedInputs[FMath::RandRange(0, unusedInputs.Num() - 1)];
 			(*comboSequence)[replacedPosition] = GetComboIndexKey(replacedElement);
 		}
 		m_onComboSequenceChanged.Broadcast();
