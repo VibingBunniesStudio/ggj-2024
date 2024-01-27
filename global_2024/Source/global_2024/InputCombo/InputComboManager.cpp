@@ -27,40 +27,50 @@ void AInputComboManager::Tick(float DeltaTime)
 
 void AInputComboManager::GenerateComboSecuence(int32 numberOfInputs, int32 differentInputsAmounts)
 {
-	bool hasDouble = false;
-	int32 prevKey = differentInputsAmounts;
-	int32 generatedKey;
-	m_comboSequence.Empty();
-	TSet<int32> unusedInputs;
-	for (int i = 0; i < differentInputsAmounts; i++)
+	m_comboSequencePlayer1.Empty();
+	m_comboSequencePlayer2.Empty();
+	TArray<FName>* comboSequence = &m_comboSequencePlayer1;
+
+	for (int32 playerIndex = 0; playerIndex < 2; playerIndex++)
 	{
-		unusedInputs.Add(i);
-	}
-	for (int i = 0; i < numberOfInputs; i++)
-	{
-		generatedKey = FMath::RandRange(0, differentInputsAmounts - 1);
-		if (i > 0 && prevKey == generatedKey) 
+		if (playerIndex == 1)
 		{
-			if (hasDouble)
-			{
-				generatedKey = (generatedKey + FMath::RandRange(1, differentInputsAmounts - 1)) % differentInputsAmounts;
-			}
-			else
-			{
-				hasDouble = true;
-			}
+			comboSequence = &m_comboSequencePlayer2;
 		}
-		prevKey = generatedKey;
-		unusedInputs.Remove(generatedKey);
-		m_comboSequence.Add(GetComboIndexKey(generatedKey));
+		bool hasDouble = false;
+		int32 prevKey = differentInputsAmounts;
+		int32 generatedKey;
+		TSet<int32> unusedInputs;
+		for (int i = 0; i < differentInputsAmounts; i++)
+		{
+			unusedInputs.Add(i);
+		}
+		for (int i = 0; i < numberOfInputs; i++)
+		{
+			generatedKey = FMath::RandRange(0, differentInputsAmounts - 1);
+			if (i > 0 && prevKey == generatedKey)
+			{
+				if (hasDouble)
+				{
+					generatedKey = (generatedKey + FMath::RandRange(1, differentInputsAmounts - 1)) % differentInputsAmounts;
+				}
+				else
+				{
+					hasDouble = true;
+				}
+			}
+			prevKey = generatedKey;
+			unusedInputs.Remove(generatedKey);
+			comboSequence->Add(GetComboIndexKey(generatedKey));
+		}
+		if (unusedInputs.Num() > (differentInputsAmounts - 3))
+		{
+			int32 replacedPosition = FMath::RandRange(0, numberOfInputs - 1);
+			int32 replacedElement = unusedInputs[FSetElementId::FromInteger(FMath::RandRange(0, unusedInputs.Num() - 1))];
+			(*comboSequence)[replacedPosition] = GetComboIndexKey(replacedElement);
+		}
+		m_onComboSequenceChanged.Broadcast();
 	}
-	if (unusedInputs.Num() > (differentInputsAmounts - 3))
-	{
-		int32 replacedPosition = FMath::RandRange(0, numberOfInputs - 1);
-		int32 replacedElement = unusedInputs[FSetElementId::FromInteger(FMath::RandRange(0, unusedInputs.Num() - 1))];
-		m_comboSequence[replacedPosition] = GetComboIndexKey(replacedElement);
-	}
-	m_onComboSequenceChanged.Broadcast();
 }
 
 int32 AInputComboManager::GetKeyComboIndex(FName key)
@@ -103,16 +113,21 @@ FName AInputComboManager::GetComboIndexKey(int32 index)
 
 bool AInputComboManager::ComboInputPressed(int32 playerIndex, int32 pressedKeyIndex)
 {
+	TArray<FName>* comboSequence = &m_comboSequencePlayer1;
+	if (playerIndex == 1)
+	{
+		comboSequence = &m_comboSequencePlayer2;
+	}
 	if (!m_playerComboProgress.Contains(playerIndex))
 	{
 		m_playerComboProgress.Add(playerIndex, 0);
 	}
 	int32 comboProgress = m_playerComboProgress[playerIndex];
-	if (GetKeyComboIndex(m_comboSequence[comboProgress]) == pressedKeyIndex)
+	if (GetKeyComboIndex((*comboSequence)[comboProgress]) == pressedKeyIndex)
 	{
 		m_onComboInputSuccess.Broadcast(playerIndex, comboProgress);
 		m_playerComboProgress[playerIndex] = comboProgress + 1;
-		if (m_playerComboProgress[playerIndex] == m_comboSequence.Num())
+		if (m_playerComboProgress[playerIndex] == comboSequence->Num())
 		{
 			m_onComboSequenceComplete.Broadcast(playerIndex);
 			m_playerComboProgress[playerIndex] = 0;
