@@ -178,7 +178,7 @@ TSharedPtr<SWidget> FEnhancedRichInlineImage::CreateDecoratorWidget(const FTextR
 
 void FEnhancedRichInlineImage::OnInputTypeChangedCallback(ECommonInputType inputType)
 {
-	//UpdateRichInlineImage();
+	UpdateRichInlineImage();
 }
 
 
@@ -411,9 +411,9 @@ const TArray<FKey> UEnhancedRichTexImageDecorator::FindInputActionKeys(FName Tag
 	const UInputAction* action = inputSettings->GetInputActionByName(TagOrId);
 	outAction = action;
 	keys = enhancedInputSubsystem->QueryKeysMappedToAction(action);
-	keys = keys.FilterByPredicate([&commonInputSubsystem](const FKey& key) -> bool
+	/*keys = keys.FilterByPredicate([&commonInputSubsystem](const FKey& key) -> bool
 	    { return (key.IsGamepadKey() && commonInputSubsystem->GetCurrentInputType() == ECommonInputType::Gamepad) ||
-		(!key.IsGamepadKey() && commonInputSubsystem->GetCurrentInputType() != ECommonInputType::Gamepad); });
+		(!key.IsGamepadKey() && commonInputSubsystem->GetCurrentInputType() != ECommonInputType::Gamepad); });*/
 	return keys;
 }
 
