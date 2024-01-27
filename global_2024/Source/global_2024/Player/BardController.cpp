@@ -9,6 +9,7 @@
 
 void ABardController::BeginPlay()
 {
+	Super::BeginPlay();
 	m_comboManager = Cast<AInputComboManager>(UGameplayStatics::GetActorOfClass(GetWorld(), AInputComboManager::StaticClass()));
 
 }
