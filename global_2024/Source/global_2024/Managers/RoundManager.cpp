@@ -41,6 +41,7 @@ void ARoundManager::EvaluatePlayerHealth(int32 playerIndex, int32 remainingHealt
 	else 
 	{
 		//Victory screen
+		m_onCombatEnd.Broadcast((playerIndex + 1)% 2);
 	}
 }
 
