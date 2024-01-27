@@ -20,7 +20,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable)
 	void TakeDamage();
+
+	UFUNCTION()
+	void Attack(int32 playerIndex);
+	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Attack"))
+	void Attack_Internal();
 
 protected:
 	
