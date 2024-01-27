@@ -123,7 +123,7 @@ bool AInputComboManager::ComboInputPressed(int32 playerIndex, int32 pressedKeyIn
 		m_playerComboProgress.Add(playerIndex, 0);
 	}
 	int32 comboProgress = m_playerComboProgress[playerIndex];
-	if (GetKeyComboIndex((*comboSequence)[comboProgress]) == pressedKeyIndex)
+	if (comboProgress < comboSequence->Num() && GetKeyComboIndex((*comboSequence)[comboProgress]) == pressedKeyIndex)
 	{
 		m_onComboInputSuccess.Broadcast(playerIndex, comboProgress);
 		m_playerComboProgress[playerIndex] = comboProgress + 1;
