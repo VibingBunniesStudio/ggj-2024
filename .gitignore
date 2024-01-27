@@ -70,6 +70,8 @@ crashinfo–*
 FMOD/.cache/*
 FMOD/.unsaved/*
 FMOD/.user/*
+#Temporarily adding all FMOD files to ignore to ensure they are not needed for playing
+FMOD/*
 
 # Ignore project-specific files
 #global_2024/Binaries/*.pdb
