@@ -39,7 +39,10 @@ public:
 	TMap<int32, int32> m_playerComboProgress;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FName> m_comboSequence;
+	TArray<FName> m_comboSequencePlayer1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FName> m_comboSequencePlayer2;
 
 	UPROPERTY(BlueprintAssignable)
 	FComboInputSuccess m_onComboInputSuccess;
