@@ -178,7 +178,7 @@ TSharedPtr<SWidget> FEnhancedRichInlineImage::CreateDecoratorWidget(const FTextR
 
 void FEnhancedRichInlineImage::OnInputTypeChangedCallback(ECommonInputType inputType)
 {
-	UpdateRichInlineImage();
+	//UpdateRichInlineImage();
 }
 
 
