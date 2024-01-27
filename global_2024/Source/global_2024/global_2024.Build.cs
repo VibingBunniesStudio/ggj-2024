@@ -13,7 +13,7 @@ public class global_2024 : ModuleRules
 
         PrivateIncludePaths.Add("global_2024");
 
-        PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "CommonInput", "EnhancedInput", "Slate", "SlateCore" });
+        PrivateDependencyModuleNames.AddRange(new string[] { "CommonUI", "CommonInput", "EnhancedInput", "Slate", "SlateCore", "FMODStudio" });
 
         // Uncomment if you are using online features
         // PrivateDependencyModuleNames.Add("OnlineSubsystem");
