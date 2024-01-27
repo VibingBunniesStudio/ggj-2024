@@ -27,10 +27,38 @@ void AInputComboManager::Tick(float DeltaTime)
 
 void AInputComboManager::GenerateComboSecuence(int32 numberOfInputs, int32 differentInputsAmounts)
 {
+	bool hasDouble = false;
+	int32 prevKey = differentInputsAmounts;
+	int32 generatedKey;
 	m_comboSequence.Empty();
+	TSet<int32> unusedInputs;
+	for (int i = 0; i < differentInputsAmounts; i++)
+	{
+		unusedInputs.Add(i);
+	}
 	for (int i = 0; i < numberOfInputs; i++)
 	{
-		m_comboSequence.Add(GetComboIndexKey(FMath::RandRange(0, differentInputsAmounts - 1)));
+		generatedKey = FMath::RandRange(0, differentInputsAmounts - 1);
+		if (i > 0 && prevKey == generatedKey) 
+		{
+			if (hasDouble)
+			{
+				generatedKey = (generatedKey + FMath::RandRange(1, differentInputsAmounts - 1)) % differentInputsAmounts;
+			}
+			else
+			{
+				hasDouble = true;
+			}
+		}
+		prevKey = generatedKey;
+		unusedInputs.Remove(generatedKey);
+		m_comboSequence.Add(GetComboIndexKey(generatedKey));
+	}
+	if (unusedInputs.Num() > (differentInputsAmounts - 3))
+	{
+		int32 replacedPosition = FMath::RandRange(0, numberOfInputs - 1);
+		int32 replacedElement = unusedInputs[FSetElementId::FromInteger(FMath::RandRange(0, unusedInputs.Num() - 1))];
+		m_comboSequence[replacedPosition] = GetComboIndexKey(replacedElement);
 	}
 	m_onComboSequenceChanged.Broadcast();
 }
