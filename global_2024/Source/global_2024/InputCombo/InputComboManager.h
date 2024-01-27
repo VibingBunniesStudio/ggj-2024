@@ -9,6 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FComboInputSuccess, int32, playerIndex, int32, comboProgress);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FComboInputFail, int32, playerIndex);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FComboSequenceComplete, int32, playerIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FComboSequenceChanged);
 
 UCLASS()
 class GLOBAL_2024_API AInputComboManager : public AActor
@@ -27,7 +28,11 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void GenerateComboSecuence(int32 numberOfInputs, int32 differentInputsAmounts);
+
 	int32 GetKeyComboIndex(FName key);
+
+	FName GetComboIndexKey(int32 index);
 
 	bool ComboInputPressed(int32 playerIndex, int32 pressedKeyIndex);
 
@@ -44,6 +49,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FComboSequenceComplete m_onComboSequenceComplete;
+
+	UPROPERTY(BlueprintAssignable)
+	FComboSequenceChanged m_onComboSequenceChanged;
 
 
 };

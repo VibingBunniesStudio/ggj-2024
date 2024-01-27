@@ -25,6 +25,16 @@ void AInputComboManager::Tick(float DeltaTime)
 
 }
 
+void AInputComboManager::GenerateComboSecuence(int32 numberOfInputs, int32 differentInputsAmounts)
+{
+	m_comboSequence.Empty();
+	for (int i = 0; i < numberOfInputs; i++)
+	{
+		m_comboSequence.Add(GetComboIndexKey(FMath::RandRange(0, differentInputsAmounts - 1)));
+	}
+	m_onComboSequenceChanged.Broadcast();
+}
+
 int32 AInputComboManager::GetKeyComboIndex(FName key)
 {
 	if (key == "a")
@@ -44,6 +54,23 @@ int32 AInputComboManager::GetKeyComboIndex(FName key)
 		return 3;
 	}
 	return -1;
+}
+
+FName AInputComboManager::GetComboIndexKey(int32 index)
+{
+	switch (index)
+	{
+	case 0:
+		return "a";
+	case 1:
+		return "b";
+	case 2:
+		return "x";
+	case 3:
+		return "y";
+	default:
+		return "";
+	}
 }
 
 bool AInputComboManager::ComboInputPressed(int32 playerIndex, int32 pressedKeyIndex)
