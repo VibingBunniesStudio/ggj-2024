@@ -136,6 +136,7 @@ bool AInputComboManager::ComboInputPressed(int32 playerIndex, int32 pressedKeyIn
 			m_comboSequencePlayer2.Empty();
 			m_playerComboProgress[0] = 0;
 			m_playerComboProgress[1] = 0;
+			m_onComboSequenceChanged.Broadcast();
 		}
 		return true;
 	}

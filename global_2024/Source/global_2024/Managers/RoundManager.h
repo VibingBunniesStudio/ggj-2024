@@ -10,6 +10,7 @@ class AInputComboManager;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPlayerHealthChanged, int32, playerIndex, int32, remainingHealth);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCombatEnd, int32, winnerPlayerIndex);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRoundEnd);
 
 UCLASS()
 class GLOBAL_2024_API ARoundManager : public AActor
@@ -42,4 +43,6 @@ public:
 	FPlayerHealthChanged m_onHealthChanged;
 	UPROPERTY(BlueprintAssignable)
 	FCombatEnd m_onCombatEnd;
+	UPROPERTY(BlueprintAssignable)
+	FRoundEnd m_onRoundEnd;
 };
