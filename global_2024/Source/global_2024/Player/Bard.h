@@ -13,12 +13,13 @@ class GLOBAL_2024_API ABard : public ACharacter
 {
 	GENERATED_BODY()
 
-private:
+public:
 
+	UPROPERTY(BlueprintReadOnly)
 	int m_hp;
+	UPROPERTY(BlueprintReadOnly)
 	int m_playerId;
 
-public:
 	static FHealthChanged m_onHealthChanged;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UInputMappingContext* m_mappingContext;
