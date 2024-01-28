@@ -36,7 +36,8 @@ void ARoundManager::EvaluatePlayerHealth(int32 playerIndex, int32 remainingHealt
 	m_onHealthChanged.Broadcast(playerIndex, remainingHealth);
 	if (remainingHealth > 0)
 	{
-		StartNewRound();
+		m_onRoundEnd.Broadcast();
+		//StartNewRound();
 	}
 	else 
 	{
