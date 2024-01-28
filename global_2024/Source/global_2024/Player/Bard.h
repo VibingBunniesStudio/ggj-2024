@@ -7,6 +7,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FHealthChanged, int32, playerIndex, int32, remainingHealth);
 
+class UInputMappingContext;
 UCLASS()
 class GLOBAL_2024_API ABard : public ACharacter
 {
@@ -19,6 +20,8 @@ private:
 
 public:
 	static FHealthChanged m_onHealthChanged;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UInputMappingContext* m_mappingContext;
 
 public:
 	

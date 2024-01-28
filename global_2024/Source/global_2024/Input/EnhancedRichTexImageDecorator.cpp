@@ -220,7 +220,7 @@ void FEnhancedRichInlineImage::AddWidgetSlot(FName TagOrId, TSharedPtr<SHorizont
 	if (ensure(containerWidget) && ensure(Brush))
 	{
 		const TSharedRef<FSlateFontMeasure> FontMeasure = FSlateApplication::Get().GetRenderer()->GetFontMeasureService();
-		float IconHeight = FMath::Min((float)FontMeasure->GetMaxCharacterHeight(TextStyle.Font, 1.0f), Brush->ImageSize.Y);
+		float IconHeight = 52;
 		float IconWidth = IconHeight;
 
 		if (Width.IsSet())
@@ -411,9 +411,9 @@ const TArray<FKey> UEnhancedRichTexImageDecorator::FindInputActionKeys(FName Tag
 	const UInputAction* action = inputSettings->GetInputActionByName(TagOrId);
 	outAction = action;
 	keys = enhancedInputSubsystem->QueryKeysMappedToAction(action);
-	/*keys = keys.FilterByPredicate([&commonInputSubsystem](const FKey& key) -> bool
+	keys = keys.FilterByPredicate([&commonInputSubsystem](const FKey& key) -> bool
 	    { return (key.IsGamepadKey() && commonInputSubsystem->GetCurrentInputType() == ECommonInputType::Gamepad) ||
-		(!key.IsGamepadKey() && commonInputSubsystem->GetCurrentInputType() != ECommonInputType::Gamepad); });*/
+		(!key.IsGamepadKey() && commonInputSubsystem->GetCurrentInputType() != ECommonInputType::Gamepad); });
 	return keys;
 }
 

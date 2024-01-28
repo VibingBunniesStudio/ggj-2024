@@ -27,10 +27,10 @@ void ABardController::SetupInputComponent()
 		{
 			return;
 		}
-		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("a"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 0);
-		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("b"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 1);
-		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("x"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 2);
-		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("y"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 3);
+		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("A"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 0);
+		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("B"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 1);
+		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("X"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 2);
+		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("Y"), ETriggerEvent::Started, this, &ABardController::ComboInputPressed, 3);
 #if WITH_EDITOR
 		EnhancedInputCmp->BindAction(inputSettings->GetInputActionByName("PauseEditor"), ETriggerEvent::Started, this, &ABardController::Pause);
 #else

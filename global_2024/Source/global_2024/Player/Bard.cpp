@@ -2,6 +2,7 @@
 #include "Bard.h"
 #include "../InputCombo/InputComboManager.h"
 #include <Kismet/GameplayStatics.h>
+#include "EnhancedInputSubsystems.h"
 
 FHealthChanged ABard::m_onHealthChanged;
 
@@ -31,6 +32,21 @@ void ABard::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	m_playerId = UGameplayStatics::GetPlayerControllerID(Cast<APlayerController>(GetController()));
+	// Get the player controller
+	if (APlayerController* PC = GetController<APlayerController>())
+	{
+		const ULocalPlayer* localPlayer = PC->GetLocalPlayer();
+		// Get the Enhanced Input Local Player Subsystem from the Local Player related to our Player Controller.
+		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(localPlayer);
+		if (Subsystem != nullptr)
+		{
+			// PawnClientRestart can run more than once in an Actor's lifetime, so start by clearing out any leftover mappings.
+			Subsystem->ClearAllMappings();
+			// Add each mapping context, along with their priority values. Higher values outprioritize lower values.0
+			Subsystem->AddMappingContext(m_mappingContext, 0);
+			//Subsystem->AddMappingContext(defaultMappingContext, 0);
+		}
+	}
 }
 
 void ABard::TakeDamage()
