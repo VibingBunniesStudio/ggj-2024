@@ -15,6 +15,8 @@ AInputComboManager::AInputComboManager()
 void AInputComboManager::BeginPlay()
 {
 	Super::BeginPlay();
+	m_playerComboProgress.Add(0, 0);
+	m_playerComboProgress.Add(1, 0);
 	
 }
 
@@ -130,8 +132,6 @@ bool AInputComboManager::ComboInputPressed(int32 playerIndex, int32 pressedKeyIn
 		if (m_playerComboProgress[playerIndex] == comboSequence->Num())
 		{
 			m_onComboSequenceComplete.Broadcast(playerIndex);
-			m_playerComboProgress[0] = 0;
-			m_playerComboProgress[1] = 0;
 			m_comboSequencePlayer1.Empty();
 			m_comboSequencePlayer2.Empty();
 		}
