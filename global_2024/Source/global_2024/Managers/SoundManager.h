@@ -21,6 +21,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowprivateAccess = "true", DisplayName = "SFX Volume"))
 	float _sfxVolume;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowprivateAccess = "true", DisplayName = "Voice Volume"))
+	float _voiceVolume;
+
 public:
 	// Sets default values for this actor's properties
 	USoundManager();
@@ -36,5 +39,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool SetSFXVolume(float newVolume);
+
+	UFUNCTION(BlueprintCallable)
+	float GetVoiceVolume();
+
+	UFUNCTION(BlueprintCallable)
+	bool SetVoiceVolume(float newVolume);
 	
 };
