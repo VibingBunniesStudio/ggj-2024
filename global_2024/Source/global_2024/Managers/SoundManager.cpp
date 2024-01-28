@@ -9,6 +9,7 @@ USoundManager::USoundManager()
 {
 	_bgmVolume = 0.5f;
 	_sfxVolume = 0.5f;
+	_voiceVolume = 0.5f;
 
 	UFMODBus* bgmBus = Cast<UFMODBus>(UFMODBlueprintStatics::FindAssetByName("bus:/bgm"));
 
@@ -17,6 +18,10 @@ USoundManager::USoundManager()
 	UFMODBus* sfxBus = Cast<UFMODBus>(UFMODBlueprintStatics::FindAssetByName("bus:/sfx"));
 
 	UFMODBlueprintStatics::BusSetVolume(sfxBus, _sfxVolume);
+
+	UFMODBus* voiceBus = Cast<UFMODBus>(UFMODBlueprintStatics::FindAssetByName("bus:/voice"));
+
+	UFMODBlueprintStatics::BusSetVolume(voiceBus, _voiceVolume);
 }
 
 float USoundManager::GetBGMusicVolume()
@@ -63,6 +68,31 @@ bool USoundManager::SetSFXVolume(float newVolume)
 	}
 
 	UFMODBlueprintStatics::BusSetVolume(sfxBus, _sfxVolume);
+
+
+	return true;
+}
+
+float USoundManager::GetVoiceVolume()
+{
+	return _voiceVolume;
+}
+
+bool USoundManager::SetVoiceVolume(float newVolume)
+{
+	if (newVolume == _voiceVolume) return true;
+	if (newVolume < 0.0) return false;
+
+	_voiceVolume = newVolume;
+
+	UFMODBus* voiceBus = Cast<UFMODBus>(UFMODBlueprintStatics::FindAssetByName("bus:/voice"));
+
+	if (!voiceBus)
+	{
+		return false;
+	}
+
+	UFMODBlueprintStatics::BusSetVolume(voiceBus, _voiceVolume);
 
 
 	return true;
