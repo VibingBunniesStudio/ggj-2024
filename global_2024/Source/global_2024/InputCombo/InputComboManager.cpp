@@ -75,19 +75,19 @@ void AInputComboManager::GenerateComboSecuence(int32 numberOfInputs, int32 diffe
 
 int32 AInputComboManager::GetKeyComboIndex(FName key)
 {
-	if (key == "a")
+	if (key == "A")
 	{
 		return 0;
 	}
-	else if (key == "b")
+	else if (key == "B")
 	{
 		return 1;
 	}
-	else if (key == "x")
+	else if (key == "X")
 	{
 		return 2;
 	}
-	else if (key == "y")
+	else if (key == "Y")
 	{
 		return 3;
 	}
@@ -99,13 +99,13 @@ FName AInputComboManager::GetComboIndexKey(int32 index)
 	switch (index)
 	{
 	case 0:
-		return "a";
+		return "A";
 	case 1:
-		return "b";
+		return "B";
 	case 2:
-		return "x";
+		return "X";
 	case 3:
-		return "y";
+		return "Y";
 	default:
 		return "";
 	}
@@ -130,7 +130,10 @@ bool AInputComboManager::ComboInputPressed(int32 playerIndex, int32 pressedKeyIn
 		if (m_playerComboProgress[playerIndex] == comboSequence->Num())
 		{
 			m_onComboSequenceComplete.Broadcast(playerIndex);
-			m_playerComboProgress[playerIndex] = 0;
+			m_playerComboProgress[0] = 0;
+			m_playerComboProgress[1] = 0;
+			m_comboSequencePlayer1.Empty();
+			m_comboSequencePlayer2.Empty();
 		}
 		return true;
 	}
