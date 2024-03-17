@@ -22,9 +22,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static void AddMappingContext(UEnhancedInputLocalPlayerSubsystem* enhancedInputSubsystem, const UInputMappingContext* MappingContext, int32 Priority)
 	{
-		enhancedInputSubsystem->AddMappingContext(MappingContext, Priority);
-		UEnhancedInputLibrary::RequestRebuildControlMappingsUsingContext(MappingContext, true);
-		onInputMappingsChanged.Broadcast();
+		if(enhancedInputSubsystem)
+		{
+			enhancedInputSubsystem->AddMappingContext(MappingContext, Priority);
+			UEnhancedInputLibrary::RequestRebuildControlMappingsUsingContext(MappingContext, true);
+			onInputMappingsChanged.Broadcast();
+		}
 	}
 
 	UFUNCTION()
